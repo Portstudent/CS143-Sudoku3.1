@@ -151,7 +151,15 @@ public class SudokuBoard {
     
     //
     public boolean solve() {
-    
+       if (!isValid()) {
+          return false;
+       } else if (isSolved()){
+          return true;
+       }
+       
+       
+       
+       return false;
     }
     
     // Checks if board is valid, then creates HashMap. Stores 1-9 in keys, and 0 in values. Checks value in each position on board
