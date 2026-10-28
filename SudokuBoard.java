@@ -7,7 +7,7 @@ public class SudokuBoard {
     protected String[][] board;
 
 
-    //constructor
+    //constructor: allows construction of a new board in a client program
     public SudokuBoard(String FileName) {
         board = new String[9][9];
 
@@ -34,7 +34,7 @@ public class SudokuBoard {
     }
 
 
-    //helper for toString
+    //helper for toString, creates string representation of board
     public String printBoard() {
         String sBoard = "+-----------------------+\n";
         for (int r = 0; r < board.length; r++) {
@@ -52,7 +52,8 @@ public class SudokuBoard {
         sBoard += "+-----------------------+\n";
         return sBoard;
     }
-
+    
+    // Using helper methods to determine validitiy if all helper methods are true
     public boolean isValid() {
         return isValidInput() && hasRowDuplicates() && hasColDuplicates() &&
             hasSquareDuplicates();
@@ -72,7 +73,9 @@ public class SudokuBoard {
         }
         return true;
     }
-
+    
+    // A full set with no duplicates would return nine values which is equal to the board length. 
+    // if there re any duplicate values, or dots, then the set.size() + dotcount evaluates to less than board.length, which is false.
     private boolean hasRowDuplicates() {
         for (int c = 0; c < board.length; c++) {
             Set < String > set = new HashSet < > ();
@@ -94,6 +97,8 @@ public class SudokuBoard {
         return true;
     }
 
+    // A full set with no duplicates would return nine values which is equal to the board length. 
+    // if there are any duplicate values, or dots, then the set.size() + dotcount evaluates to less than board.length, which is false.
     private boolean hasColDuplicates() {
         for (String[] row: board) {
             Set < String > set = new HashSet < > ();
@@ -114,7 +119,9 @@ public class SudokuBoard {
         }
         return true;
     }
-
+   
+    // Compares sum of set length and dotCount to determine if value is equal to nine, if not,
+    // set characteristics don't allow duplicates, making the final sum < 9
     private boolean hasSquareDuplicates() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -141,7 +148,15 @@ public class SudokuBoard {
         }
         return true;
     }
-
+    
+    //
+    public boolean solve() {
+    
+    }
+    
+    // Checks if board is valid, then creates HashMap. Stores 1-9 in keys, and 0 in values. Checks value in each position on board
+    // and adds one to value in map for that key only if value is not a period. If all values in map are nine, then the board is fully
+    // filled with nine of each number and no spaces exists, then return true because board is solved.
     public boolean isSolved() {
         if (!isValid()) {
             return false;
@@ -169,7 +184,7 @@ public class SudokuBoard {
         return true;
     }
 
-    //toString
+    //toString prints string representation of board
     public String toString() {
         return printBoard();
     }
