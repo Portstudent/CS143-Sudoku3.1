@@ -151,33 +151,40 @@ public class SudokuBoard3_1 {
     
     //
     public boolean solve() {
+    
+       //Check immediatly for a valid board state and whether the board is solved.
+       if(!isValid()){
+           return false;
+       } else if (isSolved()){
+           return true;
+       }
        
-       //loop through the whole board and try each position.
+       //Loop through the whole board and try each position.
        for(int r = 0; r < board.length; r++){
            for(int c = 0; c < board.length; c++){
            
-               //check new numbers at positions which were initially filled with a "."
+               //Check new numbers at positions which were initially filled with a "."
                if(board[r][c].equals(".")){
                
-                   //try numbers 1-9 at a single position.
+                   //Try numbers 1-9 at a single position.
                    for(int i = 1; i <= 9; i++){
                        board[r][c] = "" + i;
                    
-                       //the recursive part of the program.
-                       if (isValid() && solve()) {
+                       //The recursive part of the program.
+                       if(solve()){
                            return true;
-                       } 
+                       }
                    
                        //Remove the invalid number and replace it with a "." which tells the program a new number can be placed here.
                        board[r][c] = ".";
                    }
                return false;
-               }
-               
-                     
+               }  
             }
         }
-        return isSolved();
+        
+        //If you get to this point and isSolved() has not returned true, then the board is unsolvable.
+        return false;
         }
         
      
