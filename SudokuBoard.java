@@ -149,18 +149,43 @@ public class SudokuBoard {
         return true;
     }
     
-    //
+    //This method solves the sudoku puzzle 
     public boolean solve() {
-       if (!isValid()) {
-          return false;
+    
+       //Check immediatly for a valid board state and whether the board is solved.
+       if(!isValid()){
+           return false;
        } else if (isSolved()){
-          return true;
+           return true;
        }
        
-       
-       
-       return false;
-    }
+       //Loop through the whole board and try each position.
+       for(int r = 0; r < board.length; r++){
+           for(int c = 0; c < board.length; c++){
+           
+               //Check new numbers at positions which were initially filled with a "."
+               if(board[r][c].equals(".")){
+               
+                   //Try numbers 1-9 at a single position.
+                   for(int i = 1; i <= 9; i++){
+                       board[r][c] = "" + i;
+                   
+                       //The recursive part of the program.
+                       if(solve()){
+                           return true;
+                       }
+                   
+                       //Remove the invalid number and replace it with a "." which tells the program a new number can be placed here.
+                       board[r][c] = ".";
+                   }
+               return false;
+               }  
+            }
+        }
+        
+        //If you get to this point and isSolved() has not returned true at any point, then the board is unsolvable.
+        return false;
+        }
     
     // Checks if board is valid, then creates HashMap. Stores 1-9 in keys, and 0 in values. Checks value in each position on board
     // and adds one to value in map for that key only if value is not a period. If all values in map are nine, then the board is fully
