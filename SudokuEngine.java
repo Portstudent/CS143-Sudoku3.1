@@ -1,9 +1,28 @@
 public class SudokuEngine {
 	public static void main(String[] args) {
-		SudokuBoard board = new SudokuBoard("boards/data1.sdk");
-		System.out.print(board);
+		SudokuBoard3_1 board = new SudokuBoard3_1("boards/data1.sdk");
+      System.out.print(board);
+      
+      //Check for valid board
+      boolean isValid = board.isValid();
 		System.out.println("Is valid? " + board.isValid());
+      
+      //Check for solved board
+      boolean isSolved = board.isSolved();
 		System.out.println("Is solved? " + board.isSolved());
+      
+      //Solve the board if it is valid and not solved
+      if(isValid && !isSolved){
+          if(board.solve()){
+              System.out.println("board is now solved!");
+              System.out.println(board);
+          } else {
+              System.out.println("board could not be solved");
+          }
+      }
+      
+      
+		
 	}
 }
 /*
